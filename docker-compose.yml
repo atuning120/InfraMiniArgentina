@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  back:
+    image: ghcr.io/atuning120/miniecommerce-back:latest
+    container_name: miniecommerce-back
+    env_file:
+      - .env
+    depends_on:
+      - redis
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=production
+      - REDIS_URL=redis://redis:6379
+
+  redis:
+    image: redis:alpine
+    container_name: miniecommerce-redis
+    ports:
+      - "6379:6379"
+    restart: unless-stopped
+    volumes:
+      - redis_data:/data # Para que la caché no se borre si el contenedor se reinicia
+
+  front:
+    image: ghcr.io/atuning120/miniecommerce-front:latest
+    container_name: miniecommerce-front
+    depends_on:
+      - back
+    restart: unless-stopped
+
+  caddy:
+    image: caddy:2-alpine
+    container_name: miniecommerce-proxy
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - caddy_data:/data
+      - caddy_config:/config
+
+volumes:
+  redis_data:
+  caddy_data:
+  caddy_config:
