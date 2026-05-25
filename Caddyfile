@@ -1,5 +1,5 @@
-# Reemplaza 'midominio.com' por el dominio real de tu cliente
-midominio.com, www.midominio.com {
+# Temporalmente usamos :80 para poder acceder directamente con la IP del servidor
+:80 {
     
     # 1. Todas las peticiones que empiecen con /api van al backend
     handle /api/* {
