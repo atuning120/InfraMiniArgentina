@@ -41,6 +41,14 @@ services:
       - caddy_data:/data
       - caddy_config:/config
 
+  watchtower:
+    image: containrrr/watchtower
+    container_name: watchtower
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    command: --interval 60 # Revisa actualizaciones cada 60 segundos
+    restart: unless-stopped
+
 volumes:
   redis_data:
   caddy_data:
