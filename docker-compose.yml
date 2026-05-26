@@ -6,6 +6,8 @@ services:
     container_name: miniecommerce-back
     env_file:
       - .env
+    volumes:
+      - ./uploads:/usr/src/app/uploads
     depends_on:
       - redis
     restart: unless-stopped

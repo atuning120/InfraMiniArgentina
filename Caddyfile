@@ -6,6 +6,11 @@
         reverse_proxy back:3000
     }
 
+    # 1.5. Las imágenes subidas también van al backend
+    handle /uploads/* {
+        reverse_proxy back:3000
+    }
+
     # 2. El resto de las peticiones van al frontend (Nginx)
     handle {
         reverse_proxy front:80
