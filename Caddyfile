@@ -1,5 +1,9 @@
 # Dominio oficial de producción (Caddy generará el HTTPS automáticamente)
-ledclean.ar, www.ledclean.ar {
+www.ledclean.ar {
+    redir https://ledclean.ar{uri}
+}
+
+ledclean.ar {
     
     # 1. Todas las peticiones que empiecen con /api van al backend
     handle /api/* {
