@@ -5,6 +5,14 @@ www.ledclean.ar {
 
 ledclean.ar {
     
+    # Cabeceras de seguridad globales
+    header {
+        Strict-Transport-Security "max-age=31536000; includeSubDomains"
+        Content-Security-Policy "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data: https:; object-src 'none'"
+        X-Content-Type-Options "nosniff"
+        X-Frame-Options "SAMEORIGIN"
+    }
+
     # 1. Todas las peticiones que empiecen con /api van al backend
     handle /api/* {
         reverse_proxy back:3000
